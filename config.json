@@ -1,0 +1,22 @@
+{
+    "testFile" : "sample.txt",
+    "pollFreqSec" : 15,
+    "sendMinFreqMin" : 15,
+    "smtp" : {
+        "host" : "localhost",
+        "port" : 25,
+        "from" : "andy@test.com",
+        "to" : "andy@test.com"
+    },
+    "disableSmtp" : true,
+    "alerts" : [
+        {
+            "alertType" : 1,
+            "alertExpression" : "not online and charge_pct < 99",
+            "subject" : "Offline and power at {charge_pct}% {PROD}",
+            "description" : "Server is offline and power is at {charge_pct}",
+            "to" : "andy@test.com"
+        }
+
+    ]
+}
