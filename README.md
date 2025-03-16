@@ -33,3 +33,5 @@ Alert expressions are constructed using Python syntax and built-in keywords.  Th
 `python MailPower.py`
 
 When MailPower starts it will look for the "config.json" file.  A different config file can be provided using the `-c <config file path>` command-line argument. 
+
+Requires `apcaccess` package, which is not installed by `MailPower`.
