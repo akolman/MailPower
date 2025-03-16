@@ -145,6 +145,8 @@ class ApcStatusTextGetter:
     @staticmethod
     def __get_status_cmd__():
         result = subprocess.run("apcaccess", capture_output=True, text=True, shell=True)
+        if result.returncode != 0:
+            raise SystemError("Ensure apcaccess is installed")
         return result.stdout
     @staticmethod
     def get_status_text(sample_file: str = None):
@@ -281,10 +283,11 @@ while not Done:
         for alert in config.alerts:
             if evaluator.evaluates_true(alert) and checker.should_send():
                 alert.trigger(curstatus)
+    except (TypeError, SystemError) as e:
+        eprint(f"MailPower failed: {e}")
+        Done = True
+        config.poll_time_sec = 0
     except Exception as e:
         eprint(f"MailPower failed: {e}")
-        if e is TypeError:
-            Done = True
 
     time.sleep(config.poll_time_sec)
-
